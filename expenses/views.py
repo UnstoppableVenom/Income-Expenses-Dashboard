@@ -82,6 +82,7 @@ def add_expense(request):
         messages.success(request,'Expense added')
         return redirect('expenses')
 
+#editing expenses: using same logic as explained above
 def expense_edit(request,id):
     expense = Expense.objects.get(pk=id)
     Categories = Category.objects.all()
@@ -111,36 +112,37 @@ def expense_edit(request,id):
         if not date:
             messages.error(request,'Date is required')  
             return render(request,'expenses/edit_expense.html', context)
-
+        #changing inputs
         Expense.objects.create(owner= request.user, amount = amount, description = description, category = category, date = date)
         expense.owner = request.user
         expense.amount = amount
         expense.description = description
         expense.category = category
-        expense.date = date
-        expense.save()
+        expense.date = date 
+        expense.save() #saving the changes done
         messages.success(request,'Expense Updated')
         return redirect('expenses')
         messages.info(request,'Handling post form')
         return render(request,'expenses/edit_expense.html',context)
 
+#deleting the expenses
 def delete_expense(request,id):
     expense = Expense.objects.get(pk=id)
     expense.delete()
     messages.success(request,'Expense removed')
     return redirect('expenses')
 
-
+#plotting of distribution
 def expense_category_summary(request):
-    todays_date = datetime.date.today()
-    six_months_ago = todays_date - datetime.timedelta(days = 30*6)
+    todays_date = datetime.date.today()  #today's date
+    six_months_ago = todays_date - datetime.timedelta(days = 30*6) #date before six months
     expenses = Expense.objects.filter(owner = request.user,date__gte = six_months_ago, date__lte = todays_date)
     finalrep = {}
     
     def get_category(expense):
         return expense.category
         
-    category_lists = list(set(map(get_category, expenses)))
+    category_lists = list(set(map(get_category, expenses)))      #preparing the list for the same
     
 
     def get_expense_category_amount(category):
@@ -148,7 +150,7 @@ def expense_category_summary(request):
         filtered_by_category = expenses.filter(category = category)
 
         for item in filtered_by_category:
-            amount = amount + item.amount
+            amount = amount + item.amount                      #adding up amount as filtered
 
         return amount
 
@@ -161,23 +163,25 @@ def expense_category_summary(request):
     return JsonResponse({'expense_category_data' : finalrep}, safe = False)
 
 
+#to show the stats/ distribution web page
 def stats_view(request):
     return render(request,'expenses/stats.html')
 
 
+#module to export_csv 
 def export_csv(request):
 
-    response = HttpResponse(content_type = 'text/csv')
+    response = HttpResponse(content_type = 'text/csv')  #getting of the http response
     response['Content-Disposition'] = 'attachment; filename = Expenses' + \
-               str(datetime.datetime.now())+'.csv'
+               str(datetime.datetime.now())+'.csv'  #generating file name
     
-    writer = csv.writer(response)
-    writer.writerow(['Amount', 'Description', 'Category', 'Date'])
+    writer = csv.writer(response)   #creating an object to write csv
+    writer.writerow(['Amount', 'Description', 'Category', 'Date'])   #header of the csv file
 
-    expenses  = Expense.objects.filter(owner = request.user)
+    expenses  = Expense.objects.filter(owner = request.user)  #getting all the expenses
 
     for expense in expenses:
-        writer.writerow([expense.amount, expense.description, expense.category, expense.date])
+        writer.writerow([expense.amount, expense.description, expense.category, expense.date])  #writing all the expenses
 
 
     return response
