@@ -15,13 +15,13 @@ import datetime
 
 @login_required(login_url='/authentication/login')
 def index(request):
-    sources = Source.objects.all()
-    income = UserIncome.objects.filter(owner=request.user)
-    paginator = Paginator(income,5)
-    page_number = request.GET.get('page')
+    sources = Source.objects.all()  #category in expenses is here replaced by source but the main aim behind the two is same
+    income = UserIncome.objects.filter(owner=request.user) #filtering income based on date
+    paginator = Paginator(income,5) #paging 5 at one time
+    page_number = request.GET.get('page') #setting up page number
     page_obj = Paginator.get_page(paginator,page_number)
     # currency = Userpreference.objects.get(user=request.user).currency
-    currency = Userpreference.objects.get(user=request.user).currency
+    currency = Userpreference.objects.get(user=request.user).currency # getting preferred currency
     context = {
         'income' : income,
         'page_obj' : page_obj,
@@ -29,8 +29,9 @@ def index(request):
     }
     return render(request,'income/index.html',context)
  
+ #adding up income
 def add_income(request):
-    sources = Source.objects.all()
+    sources = Source.objects.all() #getting sources from backend localhost/admin
     
     context = {
             'sources' : sources,
@@ -41,22 +42,22 @@ def add_income(request):
         return render(request,'income/add_income.html', context)
 
     if request.method == 'POST':
-        amount = request.POST['amount']
+        amount = request.POST['amount'] #getting amount
         
-        if not amount:
+        if not amount: #if amount not given show error
             messages.error(request,'Amount is required')  
             return render(request,'income/add_income.html', context)
 
     
-        description = request.POST['description']
-        source = request.POST['source']
-        date = request.POST['income_date']
+        description = request.POST['description'] #getting description
+        source = request.POST['source'] #getting source
+        date = request.POST['income_date'] #getting date
 
-        if not description:
+        if not description:#if description not given show error
             messages.error(request,'Description is required')  
             return render(request,'income/add_income.html', context)
 
-        if not date:
+        if not date:#if date not given show error
             messages.error(request,'Date is required')  
             return render(request,'income/add_income.html', context)
 
@@ -64,6 +65,7 @@ def add_income(request):
         messages.success(request,'Income added')
         return redirect('income')
 
+#editing up income using the same procedure above
 def income_edit(request,id):
     income = UserIncome.objects.get(pk=id)
     sources = Source.objects.all()
@@ -100,22 +102,24 @@ def income_edit(request,id):
         income.description = description
         income.source = source
         income.date = date
-        income.save()
+        income.save() #saving the changes
         messages.success(request,'Income Updated')
         return redirect('income')
         messages.info(request,'Handling post form')
         return render(request,'expenses/edit_expense.html',context)
 
 
+#delete income
 def delete_income(request,id):
     income = UserIncome.objects.get(pk=id)
     income.delete()
     messages.success(request,'Income removed')
     return redirect('income')
 
+# getting the distribution of income
 def income_source_summary(request):
-    todays_date = datetime.date.today()
-    six_months_ago = todays_date - datetime.timedelta(days = 30*6)
+    todays_date = datetime.date.today() #getting today's date
+    six_months_ago = todays_date - datetime.timedelta(days = 30*6) # 6 months before date
     income = UserIncome.objects.filter(owner = request.user,date__gte = six_months_ago, date__lte = todays_date)
     finalrep = {}
     
@@ -142,6 +146,6 @@ def income_source_summary(request):
 
     return JsonResponse({'Income_source_data' : finalrep}, safe = False)
 
-
+#rendering stats
 def stats_view(request):
     return render(request,'income/statsincome.html')
