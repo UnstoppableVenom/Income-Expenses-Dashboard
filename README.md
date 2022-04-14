@@ -5,7 +5,7 @@ Same goes with Income also. You can set your preferred currency and change on ch
 You can visualise your income and expenses and look on which category you spent how much. 
 You can even get your expenses exported to your local system as .csv or .xls based upon your clicking of buttons. 
 
-To run on Local machine follow the below steps<br>
+To run on Localhost follow the below steps<br>
 
 <strong>Installations:</strong>
 - Download [python](https://www.python.org/downloads/) and set up this with your local system
