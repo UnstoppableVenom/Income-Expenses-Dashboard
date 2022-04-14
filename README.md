@@ -30,15 +30,19 @@ To run on Local machine follow the below steps<br>
    ```
    py -3 -m venv {folder name}
    ```
+   
 - Activate the environment: 
    ```
-   .\Scripts\activate
+   .env\Scripts\activate
    ```
-   
+   ```
+   code .
+   ```
+
+- Open new Terminal and run the following Command:
+
    ```
    pipenv runshell
    ```
    
-   ```
-   code .
-   ```
+
