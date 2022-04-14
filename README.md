@@ -17,3 +17,11 @@ To run on Local machine follow the below steps<br>
       - export EMAIL_HOST_PASSWORD =             # your email id password with which you will be sending mails
       - export EMAIL_HOST_USER =  ''               # your email id (mention instead quotes)
       - export DEFAULT_FROM_EMAIL = ''             # your email id (mention instead quotes)
+
+
+<strong>Procedure to run on local Host:</strong>
+
+- Navigate to the clone repository 
+   ```
+    cd <repository name>        # expenseswebsite 
+   ```
