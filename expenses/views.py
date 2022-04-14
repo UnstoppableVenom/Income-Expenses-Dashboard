@@ -30,15 +30,16 @@ def search_expenses(request):
         data = expenses.values()
         return JsonResponse(list(data) , safe = False)
 
+
 @login_required(login_url='/authentication/login')
 def index(request):
-    Categories = Category.objects.all()
-    expenses = Expense.objects.filter(owner=request.user)
-    paginator = Paginator(expenses,5)
-    page_number = request.GET.get('page')
-    page_obj = Paginator.get_page(paginator,page_number)
+    Categories = Category.objects.all()   #taking all the categoies from backend
+    expenses = Expense.objects.filter(owner=request.user) #filtering all the expenses according to date of expense
+    paginator = Paginator(expenses,5) # paginating all expenses
+    page_number = request.GET.get('page')  # writing page number below
+    page_obj = Paginator.get_page(paginator,page_number) 
     # currency = Userpreference.objects.get(user=request.user).currency
-    currency = Userpreference.objects.get(user=request.user).currency
+    currency = Userpreference.objects.get(user=request.user).currency  # getting currency from userpreferences module
     context = {
         'expenses' : expenses,
         'page_obj' : page_obj,
@@ -47,7 +48,7 @@ def index(request):
     return render(request,'expenses/index.html',context)
  
 def add_expense(request):
-    Categories = Category.objects.all()
+    Categories = Category.objects.all() #getting categories
     
     context = {
             'Categories' : Categories,
@@ -58,22 +59,22 @@ def add_expense(request):
         return render(request,'expenses/add_expense.html', context)
 
     if request.method == 'POST':
-        amount = request.POST['amount']
+        amount = request.POST['amount']  #taking amount
         
-        if not amount:
+        if not amount:  #  test case -> if amount not there show error 
             messages.error(request,'Amount is required')  
             return render(request,'expenses/add_expense.html', context)
 
     
-        description = request.POST['description']
-        category = request.POST['category']
-        date = request.POST['expense_date']
+        description = request.POST['description'] # taking description
+        category = request.POST['category'] #taking category
+        date = request.POST['expense_date'] #taking date
 
-        if not description:
+        if not description:#  test case -> if description not there show error 
             messages.error(request,'Description is required')  
             return render(request,'expenses/add_expense.html', context)
 
-        if not date:
+        if not date:#  test case -> if date not there show error 
             messages.error(request,'Date is required')  
             return render(request,'expenses/add_expense.html', context)
 
