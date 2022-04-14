@@ -88,7 +88,7 @@ class RegistrationView(View):
                 email.send(fail_silently=False)
                 messages.success(request,'Account successfully created')
         return render(request,'authentication/register.html')
-
+#Verifying details 
 class VerificationView(View):
     def get(self,request,uidb64,token):
         try:
@@ -111,15 +111,16 @@ class VerificationView(View):
             pass
         return redirect('login')
 
-
+#Login page
 class LoginView(View):
     def get(self,request):
         return render(request,'authentication/login.html')
 
     def post(self,request):
+        #taking inputs
         username = request.POST['username']
         password = request.POST['password']
-
+        #authenticating with registeration and showing error as expected
         if username and password:
 
             user = auth.authenticate(username=username,password=password)
@@ -140,7 +141,7 @@ class LoginView(View):
             messages.error(request,'Please fill all the fields')
             return render(request,'authentication/login.html')
 
-
+#Logging out
 class LogoutView(View):
     def post(self,request):
         auth.logout(request)
@@ -148,7 +149,7 @@ class LogoutView(View):
         return redirect('login')
 
 
-
+#reset setting of password , same logic applied as explained above in registration
 class RequestPasswordReset(View):
     def get(self,request):
         return render(request,'authentication/reset-password.html')
@@ -181,7 +182,7 @@ class RequestPasswordReset(View):
             email = EmailMessage(
                 email_subject,
                 email_body,
-                'sender.everyrupee@gmail.com',
+                '',   #please enter your email
                 [email],
             )
 
@@ -195,7 +196,7 @@ class RequestPasswordReset(View):
         return render(request,'authentication/reset-password.html')
 
 
-
+#set the new password
 class CompletePasswordReset(View):
     def get(self,request,uidb64,token):
         return render(request, 'authentication/set-newpassword.html')
