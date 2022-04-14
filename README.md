@@ -25,3 +25,8 @@ To run on Local machine follow the below steps<br>
    ```
     cd <repository name>        # expenseswebsite 
    ```
+
+- Create a new virtual environment and activate it:
+   ```
+   py -3 -m venv {folder name}
+   ```
