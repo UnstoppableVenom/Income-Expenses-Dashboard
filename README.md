@@ -15,5 +15,5 @@ To run on Local machine follow the below steps<br>
    - Mention this 4 lines of code
       - export DB_USER_PASSWORD =                # Your database password
       - export EMAIL_HOST_PASSWORD =             # your email id password with which you will be sending mails
-      - export EMAIL_HOST_USER =                 # your email id
-      - export DEFAULT_FROM_EMAIL =              # your email id
+      - export EMAIL_HOST_USER =  ''               # your email id (mention instead quotes)
+      - export DEFAULT_FROM_EMAIL = ''             # your email id (mention instead quotes)
