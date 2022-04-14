@@ -30,3 +30,7 @@ To run on Local machine follow the below steps<br>
    ```
    py -3 -m venv {folder name}
    ```
+
+   ```
+   .\Scripts\activate
+   ```
