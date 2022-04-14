@@ -186,34 +186,34 @@ def export_csv(request):
 
     return response
 
-
+#exporting to excel
 def export_excel(request):
-    response = HttpResponse(content_type = 'application/ms-excel')
+    response = HttpResponse(content_type = 'application/ms-excel')  #getting HTTP response
     response['Content-Disposition'] = 'attachment; filename = Expenses' + \
-               str(datetime.datetime.now())+'.xls'
+               str(datetime.datetime.now())+'.xls' #file naming
     
-    wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Expenses')
-    row_num = 0
-    font_style = xlwt.XFStyle()
-    font_style.font.bold = True
+    wb = xlwt.Workbook(encoding='utf-8') #setting up workbook
+    ws = wb.add_sheet('Expenses') #adding sheet to workbord
+    row_num = 0 #initialising row number
+    font_style = xlwt.XFStyle()  #font style 
+    font_style.font.bold = True # making font style of head row as bold
 
-    columns = ['Amount', 'Description', 'Category', 'Date']
+    columns = ['Amount', 'Description', 'Category', 'Date'] # adding up headers
 
     for col_num in range(len(columns)):
-        ws.write(row_num,col_num, columns[col_num], font_style)
+        ws.write(row_num,col_num, columns[col_num], font_style) #adding cells
 
-    font_style = xlwt.XFStyle()
+    font_style = xlwt.XFStyle() #font of data
 
-    rows = Expense.objects.filter(owner = request.user).values_list('amount', 'description','category','date')
+    rows = Expense.objects.filter(owner = request.user).values_list('amount', 'description','category','date') #getting all the data in rows
 
     for row in rows:
         row_num+=1
 
-        for col_num in range(len(row)):
+        for col_num in range(len(row)): #writing row data
             ws.write(row_num,col_num, str(row[col_num]), font_style)
 
-    wb.save(response)
+    wb.save(response) #saving workbook
     return response
 
 
