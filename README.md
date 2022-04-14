@@ -33,9 +33,17 @@ To run on Local machine follow the below steps<br>
    ```
    
 - Activate the environment and enter the next command: 
+
    ```
    .env\Scripts\activate
    ```
+   
+- Make Database migrations
+   ```
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+   
    ```
    code .
    ```
@@ -58,3 +66,7 @@ To run on Local machine follow the below steps<br>
 - For Mac User, Install following dependencies:
    - [Gunicorn](https://gunicorn.org/)
 
+- Run the server:
+   ```
+   python manage.py runserver
+   ```
