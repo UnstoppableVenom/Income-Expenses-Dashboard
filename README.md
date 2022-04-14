@@ -9,6 +9,7 @@ To run on Local machine follow the below steps<br>
 
 <strong>Installations:</strong>
 - Download [python](https://www.python.org/downloads/) and set up this with your local system
+- Download [Postman](https://subscription.packtpub.com/book/web_development/9781838983994/1/ch01lvl1sec13/postman)
 - Download [PostgreSQL](https://www.pgadmin.org/) and follow the below steps.
    - make a Database and name it as incomeexpensesdb
    - git clone this repo and edit the .env file.
@@ -51,5 +52,9 @@ To run on Local machine follow the below steps<br>
    - [re](https://pypi.org/project/regex/)
    - [email](https://docs.python.org/3/library/email.examples.html)
    - [Django Heroku](https://devcenter.heroku.com/articles/django-app-configuration)
-   - [Gunicorn](https://devcenter.heroku.com/articles/django-app-configuration)
+   
+- For Windows User, Install following dependencies:
+   - [Python Waitress](https://pypi.org/project/waitress/)
+- For Mac User, Install following dependencies:
+   - [Gunicorn](https://gunicorn.org/)
 
