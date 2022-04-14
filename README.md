@@ -26,11 +26,19 @@ To run on Local machine follow the below steps<br>
     cd <repository name>        # expenseswebsite 
    ```
 
-- Create a new virtual environment and activate it:
+- Create a new virtual environment:
    ```
    py -3 -m venv {folder name}
    ```
-
+- Activate the environment: 
    ```
    .\Scripts\activate
+   ```
+   
+   ```
+   pipenv runshell
+   ```
+   
+   ```
+   code .
    ```
