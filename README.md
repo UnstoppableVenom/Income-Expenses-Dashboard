@@ -19,6 +19,8 @@ To run on Local machine follow the below steps<br>
       - export EMAIL_HOST_USER =  ''               # your email id (mention instead quotes)
       - export DEFAULT_FROM_EMAIL = ''             # your email id (mention instead quotes)
 
+- Go to Authentication.views.py -> Go to line number 84 and 184 and enter your email address  
+
 
 <strong>Procedure to run on local Host:</strong>
 
