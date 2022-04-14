@@ -45,4 +45,9 @@ To run on Local machine follow the below steps<br>
    pipenv runshell
    ```
    
+- Install the following dependencies:
+   - [Django](https://www.djangoproject.com/download/)
+   - [xlwt](https://pypi.org/project/xlwt/)
+   - [re](https://pypi.org/project/regex/)
+   - [email](https://docs.python.org/3/library/email.examples.html)
 
