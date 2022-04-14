@@ -50,4 +50,6 @@ To run on Local machine follow the below steps<br>
    - [xlwt](https://pypi.org/project/xlwt/)
    - [re](https://pypi.org/project/regex/)
    - [email](https://docs.python.org/3/library/email.examples.html)
+   - [Django Heroku](https://devcenter.heroku.com/articles/django-app-configuration)
+   - [Gunicorn](https://devcenter.heroku.com/articles/django-app-configuration)
 
