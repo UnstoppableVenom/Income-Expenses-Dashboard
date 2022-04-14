@@ -26,7 +26,7 @@ To run on Localhost follow the below steps<br>
 
 - Navigate to the clone repository 
    ```
-    cd <repository name>        # expenseswebsite 
+    cd <repository name>       
    ```
 
 - Create a new virtual environment:
