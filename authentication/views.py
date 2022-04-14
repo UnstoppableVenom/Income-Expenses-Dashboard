@@ -19,26 +19,26 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 class EmailValidationView(View):
     def post(self,request):
         data = json.loads(request.body)
-        email = data['email']
+        email = data['email']  #takes email from the data collected 
 
         if not validate_email(email):
-            return JsonResponse({'email_error' :'Invalid Email'},status = 400)
+            return JsonResponse({'email_error' :'Invalid Email'},status = 400) #if any error in email report error
         
         if User.objects.filter(email=email).exists():
-            return JsonResponse({'email_error' :'Sorry, email already in use, choose another one'},status = 409)
+            return JsonResponse({'email_error' :'Sorry, email already in use, choose another one'},status = 409) #if email already in database
         return JsonResponse({'email_valid' : True})
 
 class UsernameValidationView(View):
     def post(self,request):
         data = json.loads(request.body)
-        username = data['username']
+        username = data['username']  #takes username from data collected
 
-        if not str(username).isalnum():
+        if not str(username).isalnum(): #if user name has any special character report error
             return JsonResponse({'username_error' :'username should only contain alphanumeric characters'},status = 400)
         
-        if User.objects.filter(username=username).exists():
+        if User.objects.filter(username=username).exists(): # if username already in database
             return JsonResponse({'username_error' :'Sorry, username already in use, choose another one'},status = 409)
-        return JsonResponse({'username_valid' : True})
+        return JsonResponse({'username_valid' : True}) 
 
 class RegistrationView(View):
     def get(self,request):
@@ -49,29 +49,29 @@ class RegistrationView(View):
         # validate user data
         # create account
 
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
+        username = request.POST['username']    #take input username at the register webpage
+        email = request.POST['email']          #take input email at the register webpage
+        password = request.POST['password']    #take input password at the register webpage
 
         context = {
-            'fieldValues' : request.POST
+            'fieldValues' : request.POST      #combine all inputs
         }
 
-        if not User.objects.filter(username=username).exists():
-            if not User.objects.filter(email=email).exists():
+        if not User.objects.filter(username=username).exists():  #if username is unique
+            if not User.objects.filter(email=email).exists():    #if email is unique
 
-                if(len(password) < 6):
+                if(len(password) < 6):                           #if password is less than 6 report errror
                     messages.error(request,'Password too short')
                     return render(request,'authentication/register.html',context)
 
                 user = User.objects.create_user(username=username,email=email)
                 user.set_password(password)
-                user.is_active = False
+                user.is_active = False                           #set to False as it will become true as user will click on activation link
                 user.save()
 
 
-                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-             
+                uidb64 = urlsafe_base64_encode(force_bytes(user.pk))      #encodes user id
+                # generates link to be sent to user via email
                 domain = get_current_site(request).domain
                 link = reverse('activate',kwargs={'uidb64':uidb64 ,'token':token_generator.make_token(user)})
                 activate_url = 'http://'+domain+link
@@ -81,7 +81,7 @@ class RegistrationView(View):
                 email = EmailMessage(
                     email_subject,
                     email_body,
-                    'sender.everyrupee@gmail.com',
+                    '',                    #please enter your email address here 
                     [email],
                 )
 
