@@ -31,7 +31,7 @@ To run on Local machine follow the below steps<br>
    py -3 -m venv {folder name}
    ```
    
-- Activate the environment: 
+- Activate the environment and enter the next command: 
    ```
    .env\Scripts\activate
    ```
