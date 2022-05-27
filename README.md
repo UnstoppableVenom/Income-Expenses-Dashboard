@@ -5,6 +5,12 @@ Same goes with Income also. You can set your preferred currency and change on ch
 You can visualise your income and expenses and look on which category you spent how much. 
 You can even get your expenses exported to your local system as .csv or .xls based upon your clicking of buttons. 
 
+# Collaborators 
+- [Shrutayu Aggarwal](https://github.com/Shrut26)
+- [Sanidhya S. Johri](https://github.com/UnstoppableVenom)
+
+- This is a seperate branch. The main repo link- [link](https://github.com/Shrut26/Income-Expenses-Dashboard)
+
 To run on Localhost follow the below steps<br>
 
 <strong>Installations:</strong>
