@@ -11,6 +11,8 @@ You can even get your expenses exported to your local system as .csv or .xls bas
 
 - This is a seperate branch. The main repo link- [link](https://github.com/Shrut26/Income-Expenses-Dashboard)
 
+# Instructions
+
 To run on Localhost follow the below steps<br>
 
 <strong>Installations:</strong>
